@@ -9,50 +9,7 @@
 </head>
 
 <body>
-	
-<script>
-
-	var mois_dernier = {"debut":29,"fin":30};
-	var mois_courant = {"debut":1,"fin":31};
-	var mois_suivant = {"debut":1,"fin":2};
-		
-	function genererMois(mois, actif)
-	{
-		html = "";	
-		for(jour = mois["debut"]; jour <= mois["fin"]; jour++)
-		{
-			html += '<li'+ ((actif)?' id="'+jour+'"':'') +'><span>' + jour + '</span></li>';
-		}
-		return '<ul>' + html + '</ul>';
-	}
-	html = '';
-	html += '<li id="mois-dernier">'+ genererMois(mois_dernier, false) + '</li>';
-	html += '<li id="mois-courant">'+ genererMois(mois_courant, true) + '</li>';
-	html += '<li id="mois-suivant">'+ genererMois(mois_suivant, false) + '</li>';
-	document.getElementsByTagName("body")[0].innerHTML = '<ol id="calendrier">'+html+'</ol>';
-
-	
-	var couleur;
-	function afficherListeTaches(listeTaches)
-	{
-		for(titre in listeTaches)
-		{
-			tache = listeTaches[titre];
-			debut = tache["debut"].split("-");
-			couleur = tache["couleur"]?tache["couleur"]:couleur;
-			document.getElementById(debut[2]).innerHTML += '<p style="background-color:'+couleur+';">' + titre + '</p>';
-			if(tache["taches"]) afficherListeTaches(tache["taches"]);
-		}
-	}
-
-	for(cleTheme in themes)
-	{
-		theme = themes[cleTheme];
-		afficherListeTaches(theme);
-	}
-	
-</script>
-
+	<script src="calendrier.js"></script>	
 </body>
 
 </html>
