@@ -15,55 +15,41 @@
 	var mois_dernier = {"debut":29,"fin":30};
 	var mois_courant = {"debut":1,"fin":31};
 	var mois_suivant = {"debut":1,"fin":2};
-	
-	var jour;
-	var html = '';
-
+		
+	function genererMois(mois, actif)
+	{
+		html = "";	
+		for(jour = mois["debut"]; jour <= mois["fin"]; jour++)
+		{
+			html += '<li'+ ((actif)?' id="'+jour+'"':'') +'><span>' + jour + '</span></li>';
+		}
+		return '<ul>' + html + '</ul>';
+	}
 	document.getElementsByTagName("body")[0].innerHTML = '';
-	
-	html = "";	
-	for(jour = mois_dernier["debut"]; jour <= mois_dernier["fin"]; jour++)
-	{
-		html += '<li><span>' + jour + '</span></li>';
-	}
-	html = '<li id="mois-dernier"><ul>'+html+'</ul></li>';	
-	document.getElementsByTagName("body")[0].innerHTML += html;
-	
-	html = "";
-	for(jour = mois_courant["debut"]; jour <= mois_courant["fin"]; jour++)
-	{
-		html += '<li id="'+jour+'"><span>' + jour + '</span></li>';
-	}
-	html = '<li id="mois-courant"><ul>'+html+'</ul></li>';	
-	document.getElementsByTagName("body")[0].innerHTML += html;
-	
-	html = "";	
-	for(jour = mois_suivant["debut"]; jour <= mois_suivant["fin"]; jour++)
-	{
-		html += '<li><span>' + jour + '</span></li>';
-	}
-	html = '<li id="mois-suivant"><ul>'+html+'</ul></li>';	
-	document.getElementsByTagName("body")[0].innerHTML += html;
+	document.getElementsByTagName("body")[0].innerHTML += '<li id="mois-dernier">'+ genererMois(mois_dernier, false) + '</li>';
+	document.getElementsByTagName("body")[0].innerHTML += '<li id="mois-courant">'+ genererMois(mois_courant, true) + '</li>';
+	document.getElementsByTagName("body")[0].innerHTML += '<li id="mois-suivant">'+ genererMois(mois_suivant, false) + '</li>';
 	document.getElementsByTagName("body")[0].innerHTML = '<ol id="calendrier">'+document.getElementsByTagName("body")[0].innerHTML+'</ol>';
-	
-var couleur;
-function afficherListeTaches(listeTaches)
-{
-	for(titre in listeTaches)
-    {
-		tache = listeTaches[titre];
-		debut = tache["debut"].split("-");
-		couleur = tache["couleur"]?tache["couleur"]:couleur;
-		document.getElementById(debut[2]).innerHTML += '<p style="background-color:'+couleur+';">' + titre + '</p>';
-		if(tache["taches"]) afficherListeTaches(tache["taches"]);
-    }
-}
 
-for(cleTheme in themes)
-{
-	theme = themes[cleTheme];
-	afficherListeTaches(theme);
-}
+	
+	var couleur;
+	function afficherListeTaches(listeTaches)
+	{
+		for(titre in listeTaches)
+		{
+			tache = listeTaches[titre];
+			debut = tache["debut"].split("-");
+			couleur = tache["couleur"]?tache["couleur"]:couleur;
+			document.getElementById(debut[2]).innerHTML += '<p style="background-color:'+couleur+';">' + titre + '</p>';
+			if(tache["taches"]) afficherListeTaches(tache["taches"]);
+		}
+	}
+
+	for(cleTheme in themes)
+	{
+		theme = themes[cleTheme];
+		afficherListeTaches(theme);
+	}
 	
 </script>
 
