@@ -1,0 +1,87 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Mars</title>
+	<link rel="stylesheet" type="text/css" href="decoration/calendrier.css"/>
+</head>
+
+<body>
+	
+<script>
+
+	var mois_dernier = {"debut":29,"fin":30};
+	var mois_courant = {"debut":1,"fin":31};
+	var mois_suivant = {"debut":1,"fin":2};
+	
+	var jour;
+	var html = '';
+
+	document.getElementsByTagName("body")[0].innerHTML = '';
+	
+	html = "";	
+	for(jour = mois_dernier["debut"]; jour <= mois_dernier["fin"]; jour++)
+	{
+		html += '<li><span>' + jour + '</span></li>';
+	}
+	html = '<li id="mois-dernier"><ul>'+html+'</ul></li>';	
+	document.getElementsByTagName("body")[0].innerHTML += html;
+	
+	html = "";
+	for(jour = mois_courant["debut"]; jour <= mois_courant["fin"]; jour++)
+	{
+		html += '<li id="'+jour+'"><span>' + jour + '</span></li>';
+	}
+	html = '<li id="mois-courant"><ul>'+html+'</ul></li>';	
+	document.getElementsByTagName("body")[0].innerHTML += html;
+	
+	html = "";	
+	for(jour = mois_suivant["debut"]; jour <= mois_suivant["fin"]; jour++)
+	{
+		html += '<li><span>' + jour + '</span></li>';
+	}
+	html = '<li id="mois-suivant"><ul>'+html+'</ul></li>';	
+	document.getElementsByTagName("body")[0].innerHTML += html;
+	document.getElementsByTagName("body")[0].innerHTML = '<ol id="calendrier">'+document.getElementsByTagName("body")[0].innerHTML+'</ol>';
+	
+	//http://www.jsoneditoronline.org/
+	var themes = {};
+	themes["cegep"] = {
+  "Projet graphique": 
+  {
+    "debut": "2016-03-1",
+    "fin": "2016-03-15",
+    "taches": 
+      {
+        "Corrections fonctionnel": 
+        {
+          "debut": "2016-03-1",
+          "fin": "2016-03-1"
+        },
+        "Corrections interfaces": 
+        {
+          "debut": "2016-03-3",
+          "fin": "2016-03-3"
+        }
+      }
+  }
+};
+	
+function afficherListeTaches(listeTaches)
+{
+	for(titre in listeTaches)
+    {
+		tache = listeTaches[titre];
+		debut = tache["debut"].split("-");
+		document.getElementById(debut[2]).innerHTML += "<p>" + titre + "</p>";
+		if(tache["taches"]) afficherListeTaches(tache["taches"]);
+    }	
+}
+afficherListeTaches(themes["cegep"]);
+	
+</script>
+
+</body>
+
+</html>
