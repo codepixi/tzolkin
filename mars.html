@@ -25,11 +25,11 @@
 		}
 		return '<ul>' + html + '</ul>';
 	}
-	document.getElementsByTagName("body")[0].innerHTML = '';
-	document.getElementsByTagName("body")[0].innerHTML += '<li id="mois-dernier">'+ genererMois(mois_dernier, false) + '</li>';
-	document.getElementsByTagName("body")[0].innerHTML += '<li id="mois-courant">'+ genererMois(mois_courant, true) + '</li>';
-	document.getElementsByTagName("body")[0].innerHTML += '<li id="mois-suivant">'+ genererMois(mois_suivant, false) + '</li>';
-	document.getElementsByTagName("body")[0].innerHTML = '<ol id="calendrier">'+document.getElementsByTagName("body")[0].innerHTML+'</ol>';
+	html = '';
+	html += '<li id="mois-dernier">'+ genererMois(mois_dernier, false) + '</li>';
+	html += '<li id="mois-courant">'+ genererMois(mois_courant, true) + '</li>';
+	html += '<li id="mois-suivant">'+ genererMois(mois_suivant, false) + '</li>';
+	document.getElementsByTagName("body")[0].innerHTML = '<ol id="calendrier">'+html+'</ol>';
 
 	
 	var couleur;
