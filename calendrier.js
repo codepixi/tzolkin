@@ -29,12 +29,18 @@
 			
 			jour = parseInt(debut[2]) + (mois_dernier.fin - mois_dernier.debut + 1);
 			decalage = {};
-			decalage.vertical = ((((jour - 1)/7) >> 0)*7.8 + 1);
-			decalage.horizontal = ((jour - 1)%7)*10.8 + 2.5;
-			html = '<p style="position:absolute;background-color:'+couleur+';left:'+decalage.horizontal+'em;top:'+decalage.vertical+'em;">' + titre + '</p>';
+			decalage.vertical = ((((jour - 1)/7) >> 0)*7.8 + 1) + 1.5; // 1.5 for date
+			decalage.horizontal = ((jour - 1)%7)*10.8 + 2.55;
+			
+			largeurJour = "9.6";
+			largeurInterstice = "1.2";
+			width = largeurJour; // 10.4 - 2*.3 - 2*.1
+			if(parseInt(debut[2]) == 1) {width = 2*largeurJour + 1*largeurInterstice;}
+			
+			html = '<p style="width:'+width+'em;background-color:'+couleur+';left:'+decalage.horizontal+'em;top:'+decalage.vertical+'em;">' + titre + '</p>';
 			//alert(html);
 			calendrierEtTaches = document.getElementById("calendrier-et-taches");
-			calendrierEtTaches.innerHTML = html + calendrierEtTaches.innerHTML;
+			calendrierEtTaches.innerHTML += html;
 			if(tache["taches"]) afficherListeTaches(tache["taches"]);
 		}
 	}
