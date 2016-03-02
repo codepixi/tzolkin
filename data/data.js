@@ -1,3 +1,7 @@
+	var mois_dernier = {"debut":29,"fin":30};
+	var mois_courant = {"debut":1,"fin":31};
+	var mois_suivant = {"debut":1,"fin":2};
+
 	//http://www.jsoneditoronline.org/
 	var themes = {};
 	themes["cegep"] = {
