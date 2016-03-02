@@ -5,6 +5,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title>Mars</title>
 	<link rel="stylesheet" type="text/css" href="decoration/calendrier.css"/>
+	<script src="data/data.js"></script>
 </head>
 
 <body>
@@ -45,28 +46,6 @@
 	document.getElementsByTagName("body")[0].innerHTML += html;
 	document.getElementsByTagName("body")[0].innerHTML = '<ol id="calendrier">'+document.getElementsByTagName("body")[0].innerHTML+'</ol>';
 	
-	//http://www.jsoneditoronline.org/
-	var themes = {};
-	themes["cegep"] = {
-  "Projet graphique": 
-  {
-    "debut": "2016-03-1",
-    "fin": "2016-03-15",
-    "taches": 
-      {
-        "Corrections fonctionnel": 
-        {
-          "debut": "2016-03-1",
-          "fin": "2016-03-1"
-        },
-        "Corrections interfaces": 
-        {
-          "debut": "2016-03-3",
-          "fin": "2016-03-3"
-        }
-      }
-  }
-};
 	
 function afficherListeTaches(listeTaches)
 {
@@ -78,7 +57,11 @@ function afficherListeTaches(listeTaches)
 		if(tache["taches"]) afficherListeTaches(tache["taches"]);
     }	
 }
-afficherListeTaches(themes["cegep"]);
+for(cleTheme in themes)
+{
+	theme = themes[cleTheme];
+	afficherListeTaches(theme);
+}
 	
 </script>
 
