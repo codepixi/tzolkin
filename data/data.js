@@ -4,24 +4,24 @@
   "Projet graphique": 
   {
     "debut": "2016-03-1",
-    "fin": "2016-03-15",
+    "fin": "2016-03-5",
 	"couleur":"orange",
     "taches": 
       {
         "Dossier fonctionnel": 
         {
           "debut": "2016-03-1",
-          "fin": "2016-03-1"
+          "fin": "2016-03-2"
         },
         "Dossier interfaces": 
         {
           "debut": "2016-03-3",
-          "fin": "2016-03-3"
+          "fin": "2016-03-4"
         }
       }
   }
 };
-
+/*
 	themes["projet"] = {
   "tzolkin": 
   {
@@ -43,3 +43,4 @@
       }
   }
 };
+*/
