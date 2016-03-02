@@ -46,17 +46,19 @@
 	document.getElementsByTagName("body")[0].innerHTML += html;
 	document.getElementsByTagName("body")[0].innerHTML = '<ol id="calendrier">'+document.getElementsByTagName("body")[0].innerHTML+'</ol>';
 	
-	
+var couleur;
 function afficherListeTaches(listeTaches)
 {
 	for(titre in listeTaches)
     {
 		tache = listeTaches[titre];
 		debut = tache["debut"].split("-");
-		document.getElementById(debut[2]).innerHTML += "<p>" + titre + "</p>";
+		couleur = tache["couleur"]?tache["couleur"]:couleur;
+		document.getElementById(debut[2]).innerHTML += '<p style="background-color:'+couleur+';">' + titre + '</p>';
 		if(tache["taches"]) afficherListeTaches(tache["taches"]);
-    }	
+    }
 }
+
 for(cleTheme in themes)
 {
 	theme = themes[cleTheme];
