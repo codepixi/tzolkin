@@ -8,12 +8,12 @@
 	"couleur":"orange",
     "taches": 
       {
-        "Corrections fonctionnel": 
+        "Dossier fonctionnel": 
         {
           "debut": "2016-03-1",
           "fin": "2016-03-1"
         },
-        "Corrections interfaces": 
+        "Dossier interfaces": 
         {
           "debut": "2016-03-3",
           "fin": "2016-03-3"

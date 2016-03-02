@@ -12,9 +12,9 @@ h1 {display: block; width: 200px;height:10px; text-indent:-9999px; margin: 15px 
 #calendrier li li{opacity:0.7;width:10em;height:7em;float:left;margin:.2em; padding:.2em;overflow:auto; background: url(jour.png) bottom right no-repeat; }
 #calendrier li li:hover{opacity:1;cursor:pointer;}
 #calendrier li li ol{width:auto;}
-#calendrier li li ul li,#calendrier li li ol li         {font-size:.7em;display:block;height:auto;width:auto; background: none; margin:0;padding:.2em 0;float:none;}
+#calendrier li li ul li,#calendrier li li ol li {font-size:.7em;display:block;height:auto;width:auto; background: none; margin:0;padding:.2em 0;float:none;}
 #calendrier li#mois-dernier li, #calendrier li#mois-suivant li { background: url(jour-inactif.png);}
 
 #calendrier li li.fete {}
-#calendrier li li p {font-size:.7em;display:block;}
+#calendrier li li p {font-size:.7em;display:block;color:white;font-weight:bold;padding:5px;border:solid 2px white;}
 p  {text-align:center;display: block;}
