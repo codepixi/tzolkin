@@ -31,12 +31,12 @@
         "Dossier fonctionnel": 
         {
           "debut": "2016-03-1",
-          "fin": "2016-03-3"
+          "fin": "2016-03-1"
         },
         "Dossier interfaces": 
         {
-          "debut": "2016-03-3",
-          "fin": "2016-03-4"
+          "debut": "2016-03-1",
+          "fin": "2016-03-2"
         }
       }
   }
@@ -63,4 +63,24 @@
         }
       }
   }
+};
+themes["sante"] = {	
+	"entrainement":
+	{
+		"couleur":"red",
+		"focus":"enfants",
+		"taches":
+		{
+			"redressements-25":
+			{
+				"debut": "2016-03-3",
+				"fin": "2016-03-5"
+			},
+			"cardio-latino":
+			{
+				"debut": "2016-03-5",
+				"fin": "2016-03-6"
+			},
+		}
+	}
 };

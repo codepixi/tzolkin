@@ -27,7 +27,7 @@
 		duree = jourFin - jourDebut + 1;
 		tache.decalage = {};
 		tache.decalage.vertical = 100;
-		tache.decalage.horizontal = jourDebut*largeurJour + (jourDebut)*largeurInterstice;
+		tache.decalage.horizontal = (jourDebut-1)*largeurJour + (jourDebut-1)*largeurInterstice;
 		tache.width = duree*largeurJour + (duree-1)*largeurInterstice - 5;
 		return tache;
 	}
