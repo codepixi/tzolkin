@@ -1,3 +1,4 @@
+	var mois_courant = {"debut":1,"fin":31,"semaine":2};
 		
 	function genererMois(mois)
 	{
@@ -16,7 +17,7 @@
 	///////////////////////////////////////////////////////////////////
 	
 	var couleur;
-	var largeurJour = "100";
+	var largeurJour = "200";
 	var largeurInterstice = "2";
 	
 	function calculerDecalage(tache)
@@ -33,9 +34,11 @@
 		return tache;
 	}
 	
-	function afficherListeTaches(listeTaches, focal) 
+	var dernierDecalage = 0;
+	function genererListeTaches(listeTaches, focal) 
 	{
 		focal--; // 0 is focus now
+		html = '';
 		for(titre in listeTaches)
 		{
 			tache = listeTaches[titre];
@@ -48,26 +51,60 @@
 				default:focal = parseInt(tache["debut"]); // for deep tree, focus can be specified as a number
 			}
 			couleur = tache["couleur"]?tache["couleur"]:couleur;
+			
 			if(0 == focal)
 			{
 				tache = calculerDecalage(tache);
-				html = '<div><p onmouseover="briller(this)" style="width:'+tache.width+'px;background-color:'+couleur+';left:'+tache.decalage.horizontal+'px;top:'+tache.decalage.vertical+'px;">' + titre + '</p></div>';
-				calendrierEtTaches = document.getElementById("calendrier-et-taches");
-				calendrierEtTaches.innerHTML += html;			
+				derniereTache = tache;
+				html += '<div><p class="tache" onmouseover="briller(this)" style="width:'+tache.width+'px;background-color:'+couleur+';left:'+tache.decalage.horizontal+'px;top:'+tache.decalage.vertical+'px;">' + titre + '</p></div>';
 			}
+			//htmlTaches = '';
+			//if(tache["taches"]) htmlTaches = genererListeTaches(tache["taches"], focal);
 			
-			if(tache["taches"]) afficherListeTaches(tache["taches"], focal);	
+			if(1 == focal)
+			{
+				//html += '<div class="grande-tache" style="background-color:white;opacity:0.7;left:'+derniereTache.decalage.horizontal+'px;">';			
+			}
+			if(tache["taches"]) html += genererListeTaches(tache["taches"], focal);
+			
+			if(1 == focal)
+			{
+				//html += '</div>';	
+			}
 		}
+		//alert(html);
+		return html;			
 	}
 
-	for(cleTheme in themes)
-	{
-		theme = themes[cleTheme];
-		afficherListeTaches(theme, 1);
-	}
 
 	var priorite = 100;
 	function briller(objet)
 	{
 		objet.style.zIndex = priorite++;
 	}
+	
+	function chargerData(callback) {   
+		var requete = new XMLHttpRequest();
+		requete.overrideMimeType("application/json");
+		requete.open('GET', 'data/data.json', true); 
+		requete.onreadystatechange = function () {
+			  if (requete.readyState == 4 && requete.status == "200") {
+				callback(requete.responseText);
+			  }
+		};
+		requete.send(null);  
+	}
+	
+	var themes;
+	function traiterData(data)
+	{
+		//alert(data);
+		themes =  JSON.parse(data);
+		for(cleTheme in themes)
+		{
+			theme = themes[cleTheme];
+			calendrierEtTaches = document.getElementById("calendrier-et-taches");
+			calendrierEtTaches.innerHTML += genererListeTaches(theme, 1);
+		}
+	}
+	chargerData(traiterData);

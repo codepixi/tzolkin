@@ -11,7 +11,7 @@ h1 {display: block; width: 200px;height:10px; text-indent:-9999px; margin: 15px 
 {
 	position:absolute;
 	height:100%;
-	width:3600px;
+	width:7200px;
 }
 
 #mois .jour 
@@ -21,7 +21,7 @@ h1 {display: block; width: 200px;height:10px; text-indent:-9999px; margin: 15px 
 	float:left;
 	height:100%;
 	min-height:800px;
-	width:100px;
+	width:200px;
 	background-color:#ddeeee;
 	border:solid 1px #000099;
 }
@@ -41,8 +41,15 @@ h1 {display: block; width: 200px;height:10px; text-indent:-9999px; margin: 15px 
 #calendrier-et-taches
 {
 }
-#calendrier-et-taches p
+#calendrier-et-taches .grande-tache
 {
+	position:relative;
+	border:solid 1px black;
+	
+}
+#calendrier-et-taches .tache
+{
+	font-size:12px;
 	position:relative;
 	border:solid 1px black;
 	color:white;
@@ -51,8 +58,9 @@ h1 {display: block; width: 200px;height:10px; text-indent:-9999px; margin: 15px 
 	overflow:hidden;
 	height:20px;
 	margin-bottom:-7px;
+	cursor:pointer;
 }
-#calendrier-et-taches p:hover
+#calendrier-et-taches .tache:hover
 {
 		z-index:1000;
 }

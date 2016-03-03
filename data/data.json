@@ -1,9 +1,3 @@
-var mois_dernier = {"debut":29,"fin":30};
-var mois_courant = {"debut":1,"fin":31,"semaine":2};
-var mois_suivant = {"debut":1,"fin":2};
-
-//http://www.jsoneditoronline.org/
-var themes = 
 {
 	"sante":{	
 	"entrainement":
@@ -26,7 +20,7 @@ var themes =
 			{
 				"debut": "2016-03-15",
 				"fin": "2016-03-25"
-			},
+			}
 		}
 	},
 	"thes":
@@ -44,7 +38,7 @@ var themes =
 			{
 				"debut": "2016-03-12",
 				"fin": "2016-03-13"
-			},
+			}
 		}
 	}
 	
@@ -53,18 +47,17 @@ var themes =
 {
 	"InfoProfession":
 	{
-		// a data without focus can omit dates - interval should generate from childs
 		"focus":"enfants",
 		"couleur":"yellow",
 		"taches":
 		{
-			"Diaporama internet caché":
+			"Diaporama internet inconnu":
 			{
 				"debut": "2016-03-14",
 				"fin": "2016-03-18"
 			}
 			,
-			"Exemples clés cryptage":
+			"Exemples cl�s cryptage":
 			{
 				"debut": "2016-03-14",
 				"fin": "2016-03-18"
@@ -73,7 +66,6 @@ var themes =
 	},
 	"Interface":
 	{
-		// a data without focus can omit dates - interval should generate from childs
 		"focus":"enfants",
 		"couleur":"yellow",
 		"taches":
@@ -241,4 +233,3 @@ var themes =
 }
 
 }
-;
