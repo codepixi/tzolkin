@@ -14,7 +14,7 @@ h1 {display: block; width: 200px;height:10px; text-indent:-9999px; margin: 15px 
 	width:3600px;
 }
 
-#mois li 
+#mois .jour 
 {
 	position:relative;
 	display:inline-block;
@@ -25,7 +25,7 @@ h1 {display: block; width: 200px;height:10px; text-indent:-9999px; margin: 15px 
 	background-color:#ddeeee;
 	border:solid 1px #000099;
 }
-#mois li span
+#mois .jour span
 {
 	display:inline-block;
 	width:100%;
@@ -33,6 +33,11 @@ h1 {display: block; width: 200px;height:10px; text-indent:-9999px; margin: 15px 
 	text-align:center;
 	color:#000099;
 }
+#mois .jour.conge
+{
+	background-color:pink;
+}
+
 #calendrier-et-taches
 {
 }

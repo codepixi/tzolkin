@@ -4,7 +4,8 @@
 		html = "";	
 		for(jour = mois["debut"]; jour <= mois["fin"]; jour++)
 		{
-			html += '<li class="jour" id="'+jour+'"' +'><span>' + jour + '</span></li>';
+			conge = ((jour+mois.semaine-1)%7==6 || (jour+mois.semaine-1)%7==0);
+			html += '<li class="jour '+((conge)?'conge':'travail')+'" id="'+jour+'"' +'><span>' + jour + '</span></li>';
 		}
 		return '<div id="calendrier-et-taches"><ul id="mois">' + html + '</ul></div>';
 	}

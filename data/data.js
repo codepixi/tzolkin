@@ -1,53 +1,110 @@
-	var mois_dernier = {"debut":29,"fin":30};
-	var mois_courant = {"debut":1,"fin":31};
-	var mois_suivant = {"debut":1,"fin":2};
+var mois_dernier = {"debut":29,"fin":30};
+var mois_courant = {"debut":1,"fin":31,"semaine":2};
+var mois_suivant = {"debut":1,"fin":2};
 
-	//http://www.jsoneditoronline.org/
-	var themes = {};
-	themes["cegep"] = {
-		
-"Interface":
-{
-	// a data without focus can omit dates - interval should generate from childs
-	"focus":"enfants",
-	"couleur":"yellow",
-	"taches":
+//http://www.jsoneditoronline.org/
+var themes = {};
+themes["sante"] = {	
+	"entrainement":
 	{
-		"Video des films":
+		"couleur":"red",
+		"focus":"enfants",
+		"taches":
 		{
-			"debut": "2016-03-14",
-			"fin": "2016-03-18"
+			"redressements-25":
+			{
+				"debut": "2016-03-1",
+				"fin": "2016-03-5"
+			},
+			"cardio-latino":
+			{
+				"debut": "2016-03-5",
+				"fin": "2016-03-6"
+			},
+			"spinning":
+			{
+				"debut": "2016-03-15",
+				"fin": "2016-03-25"
+			},
 		}
 	}
-},
-  "Projet graphique": 
-  {
-    "debut": "2016-03-1",
-    "fin": "2016-03-5",
-	"couleur":"orange",
-	"focus":"enfants",
-    "taches": 
-      {
-        "Dossier fonctionnel": 
-        {
-          "debut": "2016-03-1",
-          "fin": "2016-03-1"
-        },
-        "Dossier interfaces": 
-        {
-          "debut": "2016-03-1",
-          "fin": "2016-03-2"
-        }
-      }
-  }
 };
 
-	themes["projet"] = {
+themes["cegep"] = 
+{
+	"Interface":
+	{
+		// a data without focus can omit dates - interval should generate from childs
+		"focus":"enfants",
+		"couleur":"yellow",
+		"taches":
+		{
+			"Video des films":
+			{
+				"debut": "2016-03-14",
+				"fin": "2016-03-18"
+			}
+		}
+	},
+	"Projet graphique": 
+	{
+	"debut": "2016-03-1",
+	"fin": "2016-03-5",
+	"couleur":"orange",
+	"focus":"enfants",
+	"taches": 
+	  {
+		"Dossier fonctionnel": 
+		{
+		  "debut": "2016-03-1",
+		  "fin": "2016-03-1"
+		},
+		"Dossier interfaces": 
+		{
+		  "debut": "2016-03-1",
+		  "fin": "2016-03-2"
+		},
+		"Trac": 
+		{
+		  "debut": "2016-03-3",
+		  "fin": "2016-03-4"
+		},
+		"Presentation": 
+		{
+		  "debut": "2016-03-4",
+		  "fin": "2016-03-7"
+		}		
+	  }
+	},
+	"Communications": 
+	{
+	"debut": "2016-03-1",
+	"fin": "2016-03-5",
+	"couleur":"blue",
+	"focus":"enfants",
+	"taches": 
+	  {
+		"Facebook": 
+		{
+		  "debut": "2016-03-4",
+		  "fin": "2016-03-4"
+		},
+		"Site web": 
+		{
+		  "debut": "2016-03-1",
+		  "fin": "2016-03-2"
+		}
+	  }
+	}
+};
+
+themes["projet"] = 
+{
   "tzolkin": 
   {
     "debut": "2016-03-1",
     "fin": "2016-03-30",
-	"couleur":"green",
+	"couleur":"brown",
 	"focus":"enfants",
     "taches": 
       {
@@ -62,25 +119,29 @@
           "fin": "2016-03-12"
         }
       }
-  }
+  },
+  "boutiques": 
+  {
+	"couleur":"green",
+	"focus":"enfants",
+    "taches": 
+      {
+        "vue premiere boutique": 
+        {
+          "debut": "2016-03-7",
+          "fin": "2016-03-15"
+        },
+        "transactionnel": 
+        {
+          "debut": "2016-03-15",
+          "fin": "2016-03-27"
+        },
+        "ajax": 
+        {
+          "debut": "2016-03-27",
+          "fin": "2016-03-30"
+        }
+      }
+  }  
 };
-themes["sante"] = {	
-	"entrainement":
-	{
-		"couleur":"red",
-		"focus":"enfants",
-		"taches":
-		{
-			"redressements-25":
-			{
-				"debut": "2016-03-3",
-				"fin": "2016-03-5"
-			},
-			"cardio-latino":
-			{
-				"debut": "2016-03-5",
-				"fin": "2016-03-6"
-			},
-		}
-	}
-};
+
