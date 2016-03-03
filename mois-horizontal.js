@@ -50,7 +50,7 @@
 			if(0 == focal)
 			{
 				tache = calculerDecalage(tache);
-				html = '<div><p style="width:'+tache.width+'px;background-color:'+couleur+';left:'+tache.decalage.horizontal+'px;top:'+tache.decalage.vertical+'px;">' + titre + '</p></div>';
+				html = '<div><p onmouseover="briller(this)" style="width:'+tache.width+'px;background-color:'+couleur+';left:'+tache.decalage.horizontal+'px;top:'+tache.decalage.vertical+'px;">' + titre + '</p></div>';
 				calendrierEtTaches = document.getElementById("calendrier-et-taches");
 				calendrierEtTaches.innerHTML += html;			
 			}
@@ -65,3 +65,8 @@
 		afficherListeTaches(theme, 1);
 	}
 
+	var priorite = 100;
+	function briller(objet)
+	{
+		objet.style.zIndex = priorite++;
+	}
