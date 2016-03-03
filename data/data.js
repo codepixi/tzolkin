@@ -5,6 +5,21 @@
 	//http://www.jsoneditoronline.org/
 	var themes = {};
 	themes["cegep"] = {
+		
+"Interface":
+{
+	// a data without focus can omit dates - interval should generate from childs
+	"focus":"enfants",
+	"couleur":"yellow",
+	"taches":
+	{
+		"Video des films":
+		{
+			"debut": "2016-03-14",
+			"fin": "2016-03-18"
+		}
+	}
+},
   "Projet graphique": 
   {
     "debut": "2016-03-1",
@@ -16,7 +31,7 @@
         "Dossier fonctionnel": 
         {
           "debut": "2016-03-1",
-          "fin": "2016-03-2"
+          "fin": "2016-03-3"
         },
         "Dossier interfaces": 
         {

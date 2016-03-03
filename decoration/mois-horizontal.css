@@ -1,0 +1,49 @@
+/* Inspiré d'un tutoriel de
+ * Tim Wright & Chris Coyier
+ -----------------------------*/
+
+* {margin:0;padding:0;}
+body {font:1em/1.4 Verdana, Arial, Helvetica, sans-serif; background: url(fond.jpg) top center no-repeat #545454;
+height:100%;overflow:auto;}
+h1 {display: block; width: 200px;height:10px; text-indent:-9999px; margin: 15px auto; }
+
+#mois
+{
+	position:absolute;
+	height:100%;
+	width:3600px;
+}
+
+#mois li 
+{
+	position:relative;
+	display:inline-block;
+	float:left;
+	height:100%;
+	min-height:800px;
+	width:100px;
+	background-color:#ddeeee;
+	border:solid 1px #000099;
+}
+#mois li span
+{
+	display:inline-block;
+	width:100%;
+	font-size:80px;
+	text-align:center;
+	color:#000099;
+}
+#calendrier-et-taches
+{
+}
+#calendrier-et-taches p
+{
+	position:relative;
+	border:solid 1px black;
+	color:white;
+	padding-left:5px;
+	font-weight:bold;
+	overflow:hidden;
+	height:20px;
+	margin-bottom:-10px;
+}
