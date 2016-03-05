@@ -1,5 +1,7 @@
 	var mois_courant = {"debut":1,"fin":31,"semaine":2};
-		
+	
+	var periodes = {};
+	
 	function genererMois(mois)
 	{
 		html = "";	
@@ -52,7 +54,16 @@
 		//jourFin = parseInt(fin[2]);
 		duree = calculerDuree(tache);
 		tache.decalage = {};
-		decalageVertical += 15;
+		if(!periodes[jourDebut]) periodes[jourDebut] = [];
+		positionVerticale = 0;
+		while(periodes[jourDebut][positionVerticale])positionVerticale++;
+		for(jour=jourDebut; jour<(jourDebut+duree); jour++)
+		{
+			if(!periodes[jour]) periodes[jour] = [];
+			periodes[jour][positionVerticale] = tache;			
+		}
+		//periodes[jourDebut][positionVerticale] = tache;
+		decalageVertical = positionVerticale*25 + 100;
 		tache.decalage.vertical = decalageVertical;
 		tache.decalage.horizontal = (jourDebut-1)*largeurJour + (jourDebut-1)*largeurInterstice;
 		tache.width = duree*largeurJour + (duree-1)*largeurInterstice - 5;
