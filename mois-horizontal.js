@@ -48,25 +48,28 @@
 	
 	function calculerDecalage(tache)
 	{
-		debut = tache["debut"].split("-");
-		//fin = tache["fin"].split("-");
-		jourDebut = parseInt(debut[2]);
-		//jourFin = parseInt(fin[2]);
-		duree = calculerDuree(tache);
 		tache.decalage = {};
+		tache.espace = {};
+		
+		debut = tache["debut"].split("-");
+		jourDebut = parseInt(debut[2]);
+		
+		tache.duree = calculerDuree(tache);
+		
 		if(!periodes[jourDebut]) periodes[jourDebut] = [];
-		positionVerticale = 0;
-		while(periodes[jourDebut][positionVerticale])positionVerticale++;
-		for(jour=jourDebut; jour<(jourDebut+duree); jour++)
+		tache.espace.vertical = 0;
+		while(periodes[jourDebut][tache.espace.vertical])tache.espace.vertical++;
+		for(jour=jourDebut; jour<(jourDebut+tache.duree); jour++)
 		{
 			if(!periodes[jour]) periodes[jour] = [];
-			periodes[jour][positionVerticale] = tache;			
+			periodes[jour][tache.espace.vertical] = tache;			
 		}
-		//periodes[jourDebut][positionVerticale] = tache;
-		decalageVertical = positionVerticale*25 + 100;
-		tache.decalage.vertical = decalageVertical;
+		tache.espace.horizontal = jourDebut;
+		
+		tache.decalage.vertical = tache.espace.vertical*25 + 100;
 		tache.decalage.horizontal = (jourDebut-1)*largeurJour + (jourDebut-1)*largeurInterstice;
-		tache.width = duree*largeurJour + (duree-1)*largeurInterstice - 5;
+		tache.width = tache.duree*largeurJour + (tache.duree-1)*largeurInterstice - 5;
+		
 		return tache;
 	}
 	
@@ -118,7 +121,7 @@
 	var priorite = 100;
 	function briller(objet)
 	{
-		objet.style.zIndex = priorite++;
+		//objet.style.zIndex = priorite++;
 	}
 	
 	var objetEnMouvement = null;
@@ -126,10 +129,26 @@
 	function attraper(e)
 	{
 		objetEnMouvement = e.target;
+		objetEnMouvement.style.zIndex = priorite++;
+		tache = trouverTache(objetEnMouvement.innerHTML, themes.taches);
+
+		libererEspace(tache);
 		//http://stackoverflow.com/questions/5429827/how-can-i-prevent-text-element-selection-with-cursor-drag
 		e.preventDefault();
 		e.stopPropagation();
 		//window.event.cancelBubble = true		
+	}
+	
+	function libererEspace(tache)
+	{
+		periodes[tache.espace.horizontal][tache.espace.vertical] = null;
+		/*while(periodes[tache.espace.horizontal][++tache.espace.vertical])
+		{
+			voisine = periodes[tache.espace.horizontal][tache.espace.vertical];
+			voisine.espace.vertical = tache.espace.vertical-1;
+			voisine.decalage.vertical = voisine.espace.vertical*25 + 100;
+			//voisine.style.top = voisine.decalage.vertical + 'px';
+		}*/
 	}
 	
 	function deplacer(e)
@@ -161,11 +180,16 @@
 			//alert(debut);
 			unite = parseInt(largeurJour)+parseInt(largeurInterstice);
 			objetEnMouvement.style.left = (unite*(debut-1)) + 'px';
-			actualiserDebutTache(objetEnMouvement, debut);
+			tache = trouverTache(objetEnMouvement.innerHTML, themes.taches);
+			actualiserDebutTache(tache, debut);			
+			tache = calculerDecalage(tache);
+			//alert(tache.decalage.vertical);
+			objetEnMouvement.style.top = tache.decalage.vertical + 'px';
+			
 			//alert(titre);
 			//alert(objetEnMouvement.style.left);
 			objetEnMouvement = null;
-			}
+		}
 	}
 	
 	function recalculerDebut(x)
@@ -175,13 +199,8 @@
 		return Math.floor(x/unite) + 1;
 	}
 	
-	function actualiserDebutTache(tacheHTML, debut)
+	function actualiserDebutTache(tache, debut)
 	{
-		titre = tacheHTML.innerHTML;
-		//alert(themes);
-		//obj = themes.filter(function(entry){return entry.taches === titre;});
-		//alert(themes);
-		tache = trouverTache(titre, themes.taches);
 		//alert(tache);
 		if(tache)
 		{
