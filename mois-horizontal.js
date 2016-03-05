@@ -144,14 +144,17 @@
 	
 	function deposer(e)
 	{
-		debut = recalculerDebut(e.clientX + (document.documentElement.scrollLeft || document.body.scrollLeft));
-		//alert(debut);
-		unite = parseInt(largeurJour)+parseInt(largeurInterstice);
-		objetEnMouvement.style.left = (unite*(debut-1)) + 'px';
-		actualiserDebutTache(objetEnMouvement, debut);
-		//alert(titre);
-		//alert(objetEnMouvement.style.left);
-		objetEnMouvement = null;
+		if(objetEnMouvement)
+		{
+			debut = recalculerDebut(e.clientX + (document.documentElement.scrollLeft || document.body.scrollLeft));
+			//alert(debut);
+			unite = parseInt(largeurJour)+parseInt(largeurInterstice);
+			objetEnMouvement.style.left = (unite*(debut-1)) + 'px';
+			actualiserDebutTache(objetEnMouvement, debut);
+			//alert(titre);
+			//alert(objetEnMouvement.style.left);
+			objetEnMouvement = null;
+			}
 	}
 	
 	function recalculerDebut(x)
@@ -169,10 +172,14 @@
 		//alert(themes);
 		tache = trouverTache(titre, themes.taches);
 		//alert(tache);
-		duree = calculerDuree(tache);
-		//alert(duree);
-		tache.debut = '2016-03-' + debut;
-		tache.fin = '2016-03-' + (debut + duree);	
+		if(tache)
+		{
+			duree = calculerDuree(tache);
+			//alert(duree);
+			tache.debut = '2016-03-' + debut;
+			//tache.fin = '2016-03-' + (debut + duree);	
+			tache.fin = tache.debut;
+		}
 	}
 	
 	function trouverTache(titre, liste)
