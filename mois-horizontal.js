@@ -11,23 +11,46 @@
 		return '<div id="calendrier-et-taches" onmousemove="deplacer(event)" onmouseup="deposer(event)"><ul id="mois">' + html + '</ul></div>';
 	}
 	
-	document.getElementsByTagName("body")[0].innerHTML =  genererMois(mois_courant) + '<div id="message"></div>';
-	
-
+	document.getElementsByTagName("body")[0].innerHTML =  genererMois(mois_courant) + '<div id="message"></div>';	
+	document.getElementsByTagName("body")[0].innerHTML += '<div id="module-exportation"><a id="lien-exportation" href="javascript:ouvrirExportation()">Exportation</a><textarea id="exportation"></textarea><a id="lien-exportation-fermer" href="javascript:fermerExportation()">X</a>'
 	///////////////////////////////////////////////////////////////////
 	
+	
+	function ouvrirExportation()
+	{
+		//alert("afficherExportation");
+		document.querySelector("#exportation").innerHTML = JSON.stringify(themes);
+		document.querySelector("#exportation").style.display = "block";
+		document.querySelector("#exportation").style.zIndex = priorite++;
+		document.querySelector("#lien-exportation-fermer").style.display = "block";
+		document.querySelector("#lien-exportation-fermer").style.zIndex = priorite++;
+	}
+	function fermerExportation()
+	{
+		document.querySelector("#exportation").style.display = "none";		
+		document.querySelector("#lien-exportation-fermer").style.display = "none";
+	}
 	var couleur;
 	var largeurJour = "200";
 	var largeurInterstice = "2";
 	var decalageVertical = 100;
 	
-	function calculerDecalage(tache)
+	function calculerDuree(tache)
 	{
 		debut = tache["debut"].split("-");
 		fin = tache["fin"].split("-");
 		jourDebut = parseInt(debut[2]);
 		jourFin = parseInt(fin[2]);
-		duree = jourFin - jourDebut + 1;
+		return jourFin - jourDebut + 1;		
+	}
+	
+	function calculerDecalage(tache)
+	{
+		debut = tache["debut"].split("-");
+		//fin = tache["fin"].split("-");
+		jourDebut = parseInt(debut[2]);
+		//jourFin = parseInt(fin[2]);
+		duree = calculerDuree(tache);
 		tache.decalage = {};
 		decalageVertical += 15;
 		tache.decalage.vertical = decalageVertical;
@@ -58,7 +81,7 @@
 				tache = calculerDecalage(tache);
 				derniereTache = tache;
 				// TODO: serait mieux avec des noeuds
-				html += '<div class="tache" onmouseover="briller(this)" onmousedown="attraper(event)" onmouseup="deposer(event)" style="width:'+tache.width+'px;background-color:'+couleur+';left:'+tache.decalage.horizontal+'px;top:'+tache.decalage.vertical+'px;">' + titre + '</div>';
+				html += '<a class="tache" rel="'+theme+'" onmouseover="briller(this)" onmousedown="attraper(event)" onmouseup="deposer(event)" style="width:'+tache.width+'px;background-color:'+couleur+';left:'+tache.decalage.horizontal+'px;top:'+tache.decalage.vertical+'px;">' + titre + '</a>';
 			}
 			//htmlTaches = '';
 			//if(tache["taches"]) htmlTaches = genererListeTaches(tache["taches"], focal);
@@ -101,14 +124,58 @@
 		if(objetEnMouvement)
 		{
 			objetEnMouvement.style.left = x+'px';
-			objetEnMouvement.style.top = y+'px';
+			//objetEnMouvement.style.top = y+'px';
 			//document.querySelector("#message").innerHTML += objetEnMouvement.style.left+'('+x+','+y+')';
 		}
 	}
 	
 	function deposer(e)
 	{
-		objetEnMouvement = null;		
+		debut = recalculerDebut(e.clientX);
+		//alert(debut);
+		unite = parseInt(largeurJour)+parseInt(largeurInterstice);
+		objetEnMouvement.style.left = (unite*(debut-1)) + 'px';
+		actualiserDebutTache(objetEnMouvement, debut);
+		//alert(titre);
+		//alert(objetEnMouvement.style.left);
+		objetEnMouvement = null;
+	}
+	
+	function recalculerDebut(x)
+	{
+		unite = parseInt(largeurJour)+parseInt(largeurInterstice);
+		//alert(x + "/" + unite);
+		return Math.floor(x/unite) + 1;
+	}
+	
+	function actualiserDebutTache(tacheHTML, debut)
+	{
+		titre = tacheHTML.innerHTML;
+		//alert(themes);
+		//obj = themes.filter(function(entry){return entry.taches === titre;});
+		//alert(themes);
+		tache = trouverTache(titre, themes.taches);
+		//alert(tache);
+		duree = calculerDuree(tache);
+		//alert(duree);
+		tache.debut = '2016-03-' + debut;
+		tache.fin = '2016-03-' + (debut + duree);	
+	}
+	
+	function trouverTache(titre, liste)
+	{
+		//document.querySelector("#message").innerHTML += "<br>trouverTache " + liste;
+		for(position in liste)
+		{
+			//document.querySelector("#message").innerHTML += " " +position + "=="+titre+" "
+			if(position === titre) return liste[position];
+			if(liste[position].taches)
+			{
+				tache = trouverTache(titre, liste[position].taches);
+				if(tache) return tache;
+			}
+		}
+		return null;
 	}
 	
 	function chargerData(callback) {   
@@ -123,16 +190,30 @@
 		requete.send(null);  
 	}
 	
+	var lierParents = function(data)
+	{
+		if(data.nodes != undefined)
+		{
+			for(n in data.nodes)
+			{
+				data.nodes[n].parent = o;
+				lierParent(data.nodes[n]);
+			}
+		}
+	}	
+	
 	var themes;
+	var theme = "";
 	function traiterData(data)
 	{
+		lierParents(data);
 		//alert(data);
 		themes =  JSON.parse(data);
-		for(cleTheme in themes)
+		for(cleTheme in themes.taches)
 		{
-			theme = themes[cleTheme];
+			theme = themes.taches[cleTheme];
 			calendrierEtTaches = document.getElementById("calendrier-et-taches");
-			calendrierEtTaches.innerHTML += genererListeTaches(theme, 1);
+			calendrierEtTaches.innerHTML += genererListeTaches(theme.taches, 1);
 		}
 	}
 	chargerData(traiterData);

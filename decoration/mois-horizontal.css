@@ -2,14 +2,49 @@
  * Tim Wright & Chris Coyier
  -----------------------------*/
 
-* {margin:0;padding:0;}
-body {font:1em/1.4 Verdana, Arial, Helvetica, sans-serif; background: url(fond.jpg) top center no-repeat #545454;
-height:100%;overflow:auto;}
-h1 {display: block; width: 200px;height:10px; text-indent:-9999px; margin: 15px auto; }
-
+* 
+{
+	margin:0;
+	padding:0;
+}
+body 
+{
+	font:1em/1.4 Verdana, Arial, Helvetica, sans-serif; 
+	background: url(fond.jpg) top center no-repeat #545454;
+	height:2000px;overflow:auto;
+}
+h1 
+{
+	display: block; width: 200px;height:10px; 
+	text-indent:-9999px; margin: 15px auto; 
+}
 #message
 {
 	position:absolute;
+}
+
+#boite-exportation
+{
+	position:absolute;
+}
+#lien-exportation-fermer
+{
+	position:absolute;
+	display:none;
+	left:500px;
+}
+#lien-exportation
+{
+	position:absolute;
+}
+#exportation
+{
+	display:none;
+	position:absolute;
+	top:20px;
+	left:20px;
+	width:500px;
+	height:500px;
 }
 
 #mois
