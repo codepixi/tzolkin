@@ -119,19 +119,24 @@
 	
 	function deplacer(e)
 	{
-		x = e.clientX;
-		y = e.clientY;
+		//http://stackoverflow.com/questions/3343384/mouse-position-cross-browser-compatibility-javascript
+		// http://www.w3schools.com/jsref/prop_element_scrollleft.asp
+		//var body = document.body; // For Chrome, Safari and Opera
+		//var html = document.documentElement; // Firefox and IE
+		
 		if(objetEnMouvement)
 		{
+			x = e.clientX + (document.documentElement.scrollLeft || document.body.scrollLeft);
 			objetEnMouvement.style.left = x+'px';
 			//objetEnMouvement.style.top = y+'px';
 			//document.querySelector("#message").innerHTML += objetEnMouvement.style.left+'('+x+','+y+')';
 		}
+		
 	}
 	
 	function deposer(e)
 	{
-		debut = recalculerDebut(e.clientX);
+		debut = recalculerDebut(e.clientX + (document.documentElement.scrollLeft || document.body.scrollLeft));
 		//alert(debut);
 		unite = parseInt(largeurJour)+parseInt(largeurInterstice);
 		objetEnMouvement.style.left = (unite*(debut-1)) + 'px';
