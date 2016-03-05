@@ -115,6 +115,10 @@
 	function attraper(e)
 	{
 		objetEnMouvement = e.target;
+		//http://stackoverflow.com/questions/5429827/how-can-i-prevent-text-element-selection-with-cursor-drag
+		e.preventDefault();
+		e.stopPropagation();
+		//window.event.cancelBubble = true		
 	}
 	
 	function deplacer(e)
@@ -126,12 +130,16 @@
 		
 		if(objetEnMouvement)
 		{
+			//http://stackoverflow.com/questions/4096863/how-to-get-and-set-the-current-web-page-scroll-position
 			x = e.clientX + (document.documentElement.scrollLeft || document.body.scrollLeft);
 			objetEnMouvement.style.left = x+'px';
 			//objetEnMouvement.style.top = y+'px';
 			//document.querySelector("#message").innerHTML += objetEnMouvement.style.left+'('+x+','+y+')';
 		}
-		
+		//http://stackoverflow.com/questions/5429827/how-can-i-prevent-text-element-selection-with-cursor-drag
+		e.preventDefault();
+		e.stopPropagation();
+		//window.event.cancelBubble = true		
 	}
 	
 	function deposer(e)
