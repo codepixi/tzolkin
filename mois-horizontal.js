@@ -8,10 +8,10 @@
 			conge = ((jour+mois.semaine-1)%7==6 || (jour+mois.semaine-1)%7==0);
 			html += '<li class="jour '+((conge)?'conge':'travail')+'" id="'+jour+'"' +'><span>' + jour + '</span></li>';
 		}
-		return '<div id="calendrier-et-taches"><ul id="mois">' + html + '</ul></div>';
+		return '<div id="calendrier-et-taches" onmousemove="deplacer(event)" onmouseup="deposer(event)"><ul id="mois">' + html + '</ul></div>';
 	}
 	
-	document.getElementsByTagName("body")[0].innerHTML = genererMois(mois_courant);
+	document.getElementsByTagName("body")[0].innerHTML =  genererMois(mois_courant) + '<div id="message"></div>';
 	
 
 	///////////////////////////////////////////////////////////////////
@@ -19,6 +19,7 @@
 	var couleur;
 	var largeurJour = "200";
 	var largeurInterstice = "2";
+	var decalageVertical = 100;
 	
 	function calculerDecalage(tache)
 	{
@@ -28,7 +29,8 @@
 		jourFin = parseInt(fin[2]);
 		duree = jourFin - jourDebut + 1;
 		tache.decalage = {};
-		tache.decalage.vertical = 100;
+		decalageVertical += 15;
+		tache.decalage.vertical = decalageVertical;
 		tache.decalage.horizontal = (jourDebut-1)*largeurJour + (jourDebut-1)*largeurInterstice;
 		tache.width = duree*largeurJour + (duree-1)*largeurInterstice - 5;
 		return tache;
@@ -42,7 +44,6 @@
 		for(titre in listeTaches)
 		{
 			tache = listeTaches[titre];
-			
 			if(tache["focus"])
 			switch(tache["focus"])
 			{
@@ -52,11 +53,12 @@
 			}
 			couleur = tache["couleur"]?tache["couleur"]:couleur;
 			
-			if(0 == focal)
+			if(0 == focal && tache["debut"])
 			{
 				tache = calculerDecalage(tache);
 				derniereTache = tache;
-				html += '<div><p class="tache" onmouseover="briller(this)" style="width:'+tache.width+'px;background-color:'+couleur+';left:'+tache.decalage.horizontal+'px;top:'+tache.decalage.vertical+'px;">' + titre + '</p></div>';
+				// TODO: serait mieux avec des noeuds
+				html += '<div class="tache" onmouseover="briller(this)" onmousedown="attraper(event)" onmouseup="deposer(event)" style="width:'+tache.width+'px;background-color:'+couleur+';left:'+tache.decalage.horizontal+'px;top:'+tache.decalage.vertical+'px;">' + titre + '</div>';
 			}
 			//htmlTaches = '';
 			//if(tache["taches"]) htmlTaches = genererListeTaches(tache["taches"], focal);
@@ -71,16 +73,42 @@
 			{
 				//html += '</div>';	
 			}
+
 		}
 		//alert(html);
 		return html;			
 	}
 
 
+	
 	var priorite = 100;
 	function briller(objet)
 	{
 		objet.style.zIndex = priorite++;
+	}
+	
+	var objetEnMouvement = null;
+	
+	function attraper(e)
+	{
+		objetEnMouvement = e.target;
+	}
+	
+	function deplacer(e)
+	{
+		x = e.clientX;
+		y = e.clientY;
+		if(objetEnMouvement)
+		{
+			objetEnMouvement.style.left = x+'px';
+			objetEnMouvement.style.top = y+'px';
+			//document.querySelector("#message").innerHTML += objetEnMouvement.style.left+'('+x+','+y+')';
+		}
+	}
+	
+	function deposer(e)
+	{
+		objetEnMouvement = null;		
 	}
 	
 	function chargerData(callback) {   

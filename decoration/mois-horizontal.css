@@ -7,6 +7,11 @@ body {font:1em/1.4 Verdana, Arial, Helvetica, sans-serif; background: url(fond.j
 height:100%;overflow:auto;}
 h1 {display: block; width: 200px;height:10px; text-indent:-9999px; margin: 15px auto; }
 
+#message
+{
+	position:absolute;
+}
+
 #mois
 {
 	position:absolute;
@@ -50,14 +55,14 @@ h1 {display: block; width: 200px;height:10px; text-indent:-9999px; margin: 15px 
 #calendrier-et-taches .tache
 {
 	font-size:12px;
-	position:relative;
+	position:absolute;
+	display:block;
 	border:solid 1px black;
 	color:white;
 	padding-left:5px;
 	font-weight:bold;
 	overflow:hidden;
 	height:20px;
-	margin-bottom:-7px;
 	cursor:pointer;
 }
 #calendrier-et-taches .tache:hover
