@@ -21,7 +21,19 @@
 	function ouvrirExportation()
 	{
 		//alert("afficherExportation");
-		document.querySelector("#exportation").innerHTML = JSON.stringify(themes);
+		// Type error: cyclic object value
+		var seen = [];
+		document.querySelector("#exportation").innerHTML = JSON.stringify(themes, function(key, val) {
+			if (val != null && typeof val == "object") {
+				if (seen.indexOf(val) >= 0)
+				{
+					return;
+				}
+				seen.push(val);
+				return val;
+			}
+		}
+		);//http://stackoverflow.com/questions/9382167/serializing-object-that-contains-cyclic-object-value/9382383#9382383
 		document.querySelector("#exportation").style.display = "block";
 		document.querySelector("#exportation").style.zIndex = priorite++;
 		document.querySelector("#lien-exportation-fermer").style.display = "block";
@@ -240,6 +252,17 @@
 		};
 		requete.send(null);  
 	}
+	var annulerParents = function(data)
+	{
+		if(data.taches != undefined)
+		{
+			for(n in data.taches)
+			{
+				data.taches[n].parent = null;
+				lierParents(data.taches[n]);
+			}
+		}
+	}	
 	
 	var lierParents = function(data)
 	{
