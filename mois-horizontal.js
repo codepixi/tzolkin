@@ -21,23 +21,13 @@
 	function ouvrirExportation()
 	{
 		//alert("afficherExportation");
-		// Type error: cyclic object value
-		var seen = [];
-		document.querySelector("#exportation").innerHTML = JSON.stringify(themes, function(key, val) {
-			if (val != null && typeof val == "object") {
-				if (seen.indexOf(val) >= 0)
-				{
-					return;
-				}
-				seen.push(val);
-				return val;
-			}
-		}
-		);//http://stackoverflow.com/questions/9382167/serializing-object-that-contains-cyclic-object-value/9382383#9382383
+		annulerParents(themes);
+		document.querySelector("#exportation").innerHTML = JSON.stringify(themes);
 		document.querySelector("#exportation").style.display = "block";
 		document.querySelector("#exportation").style.zIndex = priorite++;
 		document.querySelector("#lien-exportation-fermer").style.display = "block";
 		document.querySelector("#lien-exportation-fermer").style.zIndex = priorite++;
+		lierParents(themes);
 	}
 	function fermerExportation()
 	{
@@ -102,7 +92,7 @@
 				default:focal = parseInt(tache["debut"]); // for deep tree, focus can be specified as a number
 			}
 			couleur = tache["couleur"]?tache["couleur"]:couleur;
-			
+						
 			if(0 == focal && tache["debut"])
 			{
 				tache = calculerDecalage(tache);
@@ -259,7 +249,7 @@
 			for(n in data.taches)
 			{
 				data.taches[n].parent = null;
-				lierParents(data.taches[n]);
+				annulerParents(data.taches[n]);
 			}
 		}
 	}	
