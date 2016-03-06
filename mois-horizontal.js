@@ -33,7 +33,7 @@
 		document.querySelector("#lien-exportation-fermer").style.display = "none";
 	}
 	var couleur;
-	var largeurJour = "200";
+	var largeurJour = "250";
 	var largeurInterstice = "2";
 	var decalageVertical = 100;
 	
@@ -81,6 +81,7 @@
 		for(titre in listeTaches)
 		{
 			tache = listeTaches[titre];
+			tache.titre = titre;
 			if(tache["focus"])
 			switch(tache["focus"])
 			{
@@ -95,7 +96,7 @@
 				tache = calculerDecalage(tache);
 				derniereTache = tache;
 				// TODO: serait mieux avec des noeuds
-				html += '<a class="tache" rel="'+theme+'" onmouseover="briller(this)" onmousedown="attraper(event)" onmouseup="deposer(event)" style="width:'+tache.width+'px;background-color:'+couleur+';left:'+tache.decalage.horizontal+'px;top:'+tache.decalage.vertical+'px;">' + titre + '</a>';
+				html += '<a class="tache" rel="'+theme+'" title="'+tache.parent.titre+'" onmouseover="briller(this)" onmousedown="attraper(event)" onmouseup="deposer(event)" style="width:'+tache.width+'px;background-color:'+couleur+';left:'+tache.decalage.horizontal+'px;top:'+tache.decalage.vertical+'px;">' + titre + '</a>';
 			}
 			//htmlTaches = '';
 			//if(tache["taches"]) htmlTaches = genererListeTaches(tache["taches"], focal);
@@ -242,12 +243,12 @@
 	
 	var lierParents = function(data)
 	{
-		if(data.nodes != undefined)
+		if(data.taches != undefined)
 		{
-			for(n in data.nodes)
+			for(n in data.taches)
 			{
-				data.nodes[n].parent = o;
-				lierParent(data.nodes[n]);
+				data.taches[n].parent = data;
+				lierParents(data.taches[n]);
 			}
 		}
 	}	
@@ -256,12 +257,13 @@
 	var theme = "";
 	function traiterData(data)
 	{
-		lierParents(data);
 		//alert(data);
 		themes =  JSON.parse(data);
+		lierParents(themes);
 		for(cleTheme in themes.taches)
 		{
 			theme = themes.taches[cleTheme];
+			theme.titre = cleTheme;
 			calendrierEtTaches = document.getElementById("calendrier-et-taches");
 			calendrierEtTaches.innerHTML += genererListeTaches(theme.taches, 1);
 		}
